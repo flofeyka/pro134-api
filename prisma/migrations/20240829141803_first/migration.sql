@@ -4,6 +4,7 @@ CREATE TYPE "OrderType" AS ENUM ('PHYSICAL', 'JURIDICAL');
 -- CreateTable
 CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
+    "articul" INTEGER NOT NULL,
     "model" TEXT NOT NULL,
     "capacity" TEXT NOT NULL,
     "rated_power" INTEGER NOT NULL,
@@ -32,7 +33,7 @@ CREATE TABLE "Product" (
     "alternator_winding" TEXT NOT NULL,
     "engine_model" TEXT NOT NULL,
     "engine_type" TEXT NOT NULL,
-    "engine_volume" TEXT NOT NULL,
+    "engine_volume" INTEGER NOT NULL,
     "fuel_type" TEXT NOT NULL,
     "recommended_oil" TEXT NOT NULL,
     "lubrication_volume" TEXT NOT NULL,
@@ -57,6 +58,13 @@ CREATE TABLE "ProductPhoto" (
     "source" TEXT NOT NULL,
     "product_id" INTEGER NOT NULL,
     CONSTRAINT "ProductPhoto_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE "ProductPdf" (
+    "id" SERIAL NOT NULL,
+    "source" TEXT NOT NULL,
+    "product_id" INTEGER NOT NULL,
+    CONSTRAINT "ProductPdf_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -93,6 +101,11 @@ ALTER TABLE
     "ProductPhoto"
 ADD
     CONSTRAINT "ProductPhoto_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE
+    "ProductPdf"
+ADD 
+    CONSTRAINT "ProductPdf_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE

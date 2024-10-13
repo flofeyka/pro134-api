@@ -1,4 +1,9 @@
-import express, {Router} from 'express';
+import cookieParser from "cookie-parser";
+import express, { Router } from 'express';
+import multer from 'multer';
+import { checkAuth, login } from "../controllers/auth-controller.js";
+import { feedback } from "../controllers/feedback-controller.js";
+import { getAllOrders, makeOrder } from "../controllers/order-controller.js";
 import {
     addProduct,
     deleteProduct, editProduct,
@@ -6,12 +11,7 @@ import {
     getOneProduct, getOneProductWithStopped, getPopularProducts,
     stopProduct
 } from "../controllers/product-controller.js";
-import multer from 'multer';
-import {jwtMiddleware} from "../middlewares/jwt.js";
-import {checkAuth, login} from "../controllers/auth-controller.js";
-import {getAllOrders, makeOrder} from "../controllers/order-controller.js";
-import {feedback} from "../controllers/feedback-controller.js";
-import cookieParser from "cookie-parser"
+import { jwtMiddleware } from "../middlewares/jwt.js";
 
 const upload = multer();
 const router = Router();
@@ -28,8 +28,8 @@ router.get('/product/:id/with-stopped', jwtMiddleware, getOneProductWithStopped)
 router.get('/product/popular', getPopularProducts)
 router.get('/product/:id', getOneProduct)
 
-router.post('/product', jwtMiddleware, upload.array('photos'), addProduct)
-router.put('/product/:id', jwtMiddleware, upload.array('photos'), editProduct)
+router.post('/product', upload.fields([{name: 'pdf'}, {name: 'photos'}]), express.json(), addProduct)
+router.put('/product/:id', upload.fields([{name: 'pdf'}, {name: 'photos'}]),  express.json(), editProduct)
 
 router.delete('/product/:id', jwtMiddleware, deleteProduct)
 router.put('/product/:id/stop', jwtMiddleware, express.json(), stopProduct)
