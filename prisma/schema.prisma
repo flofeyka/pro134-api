@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://linkapp_db_owner:k1TR7MGVmZrS@ep-ancient-salad-a5uofnli.us-east-2.aws.neon.tech/linkapp_db?sslmode=require"
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  model String
+  capacity String
+  rated_power Int
+  peak_power Int
+  battery_type String
+  adapter String
+  car_charge_input String
+  sun_charge String
+  work_temp String
+  ac_output String
+  usb_output String
+  output String
+  dc_output String
+  type_c_output String
+  output_signal String
+  gross_weight String
+  rated_frequency String
+  anderson_output String
+  battery_rated_frequency String
+  construction_type String
+  noise_level String
+  volume_of_fuel_tank_during_operation String
+  starting_system String
+  auto_start String
+  alternator String
+  alternator_winding String
+  engine_model String
+  engine_type String
+  engine_volume String
+  fuel_type String
+  recommended_oil String
+  lubrication_volume String
+  overcurrent_protection String
+  overvoltage_protection String
+  overheating_protection String
+  recharge_protecting String
+  width Int
+  height Int
+  length Int
+  stopped Boolean @default(false)
+  price Decimal
+  count Int @default(0)
+
+  photos ProductPhoto[]
+  order_product OrderProduct[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model ProductPhoto {
+  id Int @id @default(autoincrement())
+  source String
+  product_id Int
+
+  product Product @relation(fields: [product_id], references: [id])
+}
+
+enum OrderType {
+  PHYSICAL
+  JURIDICAL
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  type OrderType
+
+  //физ
+  surname String?
+  name String?
+  patronymic String?
+  apartment String?
+
+  //юр
+  organization String?
+  iin String?
+  kpp String?
+
+  //оба
+  email String
+  phone String
+  region String
+  city String
+  address String
+
+  products OrderProduct[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model OrderProduct {
+  id Int @id @default(autoincrement())
+  product_id Int
+  order_id Int
+  count Int
+
+  order Order @relation(fields: [order_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id])
+}

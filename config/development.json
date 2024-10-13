@@ -1,0 +1,34 @@
+{
+  "server": {
+    "port": 8000
+  },
+  "admin": {
+    "login": "test",
+    "password": "test"
+  },
+  "jwt": {
+    "secret": "ZmFzZGZhc2YzMjEzMTN3ZmRm",
+    "access_expired": 900,
+    "refresh_expired": 1209600,
+    "comment": "Значения сроков длительности токенов указывается в секундах!"
+  },
+  "smtp": {
+    "host": "smtp.yandex.ru",
+    "port": 587,
+
+    "receiver": "Prom34t@yandex.ru",
+    "sender": "secret0mailer@yandex.ru",
+
+    "credentials": {
+      "login": "secret0mailer",
+      "password": "lzliigyxekgscrqq"
+    }
+  },
+  "db": {
+    "address": "ep-ancient-salad-a5uofnli.us-east-2.aws.neon.tech",
+    "port": 5432,
+    "dbname": "linkapp_db",
+    "user": "linkapp_db_owner",
+    "password": "k1TR7MGVmZrS"
+  }
+}
