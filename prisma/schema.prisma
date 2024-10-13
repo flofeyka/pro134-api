@@ -16,6 +16,7 @@ datasource db {
 
 model Product {
   id Int @id @default(autoincrement())
+  articul Int
   model String
   capacity String
   rated_power Int
@@ -44,7 +45,7 @@ model Product {
   alternator_winding String
   engine_model String
   engine_type String
-  engine_volume String
+  engine_volume Int
   fuel_type String
   recommended_oil String
   lubrication_volume String
@@ -61,12 +62,21 @@ model Product {
 
   photos ProductPhoto[]
   order_product OrderProduct[]
+  pdf ProductPdf[]
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }
 
 model ProductPhoto {
+  id Int @id @default(autoincrement())
+  source String
+  product_id Int
+
+  product Product @relation(fields: [product_id], references: [id])
+}
+
+model ProductPdf {
   id Int @id @default(autoincrement())
   source String
   product_id Int
