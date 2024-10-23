@@ -3,8 +3,8 @@
     "port": 8000
   },
   "admin": {
-    "login": "test",
-    "password": "test"
+    "login": "Wt18WLDbA8",
+    "password": "Wt18WLDbA8"
   },
   "jwt": {
     "secret": "ZmFzZGZhc2YzMjEzMTN3ZmRm",

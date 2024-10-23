@@ -6,12 +6,11 @@
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "windows"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://linkapp_db_owner:k1TR7MGVmZrS@ep-ancient-salad-a5uofnli.us-east-2.aws.neon.tech/linkapp_db?sslmode=require"
+  url      = "postgresql://linkapp_owner:I9Y5NguxADqT@ep-snowy-math-a83yajds.eastus2.azure.neon.tech/linkapp?sslmode=require"
 }
 
 model Product {
@@ -28,7 +27,6 @@ model Product {
   work_temp String
   ac_output String
   usb_output String
-  output String
   dc_output String
   type_c_output String
   output_signal String
@@ -52,7 +50,7 @@ model Product {
   overcurrent_protection String
   overvoltage_protection String
   overheating_protection String
-  recharge_protecting String
+  recharge_protection String
   width Int
   height Int
   length Int

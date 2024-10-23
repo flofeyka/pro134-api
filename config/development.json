@@ -25,10 +25,10 @@
     }
   },
   "db": {
-    "address": "ep-ancient-salad-a5uofnli.us-east-2.aws.neon.tech",
+    "address": "ep-snowy-math-a83yajds.eastus2.azure.neon.tech",
     "port": 5432,
-    "dbname": "linkapp_db",
-    "user": "linkapp_db_owner",
-    "password": "k1TR7MGVmZrS"
+    "dbname": "linkapp",
+    "user": "linkapp_owner",
+    "password": "I9Y5NguxADqT"
   }
 }

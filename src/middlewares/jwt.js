@@ -2,13 +2,14 @@ import config from 'config';
 import jwt from "jsonwebtoken";
 import {jwtMakeToken} from "../lib/jwt-helpers/jwtMakeToken.js";
 import {logger} from "../lib/logger/logger.js";
+import HttpError from '../helpers/httpError.js';
 
 const jwtConfig = config.get('jwt')
 
 export const jwtMiddleware = (req, res, next) => {
     const secret = Buffer.from(jwtConfig.secret, 'base64')
-    const authHeader = req.headers.authorization;
-    const refreshToken = req.cookies.refresh_token;
+    const authHeader = req.headers?.authorization;
+    const refreshToken = req.cookies?.refresh_token;
 
     try {
         if (!authHeader || !refreshToken) {
@@ -18,7 +19,7 @@ export const jwtMiddleware = (req, res, next) => {
         const accessToken = authHeader.replace('Bearer ', '')
         let accessPayload, refreshPayload;
 
-        jwt.verify(accessToken, secret, {algorithms: ['HS256']}, (err, decoded) => {
+        console.log(jwt.verify(accessToken, secret, {algorithms: ['HS256']}, (err, decoded) => {
             if (err) {
                 const now = Date.now();
                 const tmp_decoded = jwt.decode(accessToken, secret)
@@ -26,22 +27,18 @@ export const jwtMiddleware = (req, res, next) => {
                 logger.info(tmp_decoded.exp)
                 logger.info(now)
 
-                throw err
+                throw HttpError(401, "Не авторизован");
             }
             accessPayload = decoded
-        })
+        }))
 
-        jwt.verify(refreshToken, secret, {algorithms: ['HS256']}, (err, decoded) => {
+        console.log(jwt.verify(refreshToken, secret, {algorithms: ['HS256']}, (err, decoded) => {
             ///TODO: если протух refresh token = 401
             if (err) {
                 throw new Error('refresh token expired')
             }
             refreshPayload = decoded
-        })
-
-        if (accessPayload.id !== refreshPayload.id) {
-            throw new Error('token id does not match')
-        }
+        }))
 
     } catch (e) {
         logger.error(e, 'jwt error')
