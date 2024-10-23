@@ -1,4 +1,4 @@
-import HttpError from "../helpers/httpError.js";
+import HttpError from "../helpers/HttpError.js";
 import path from "path";
 import fs from "fs";
 import { logger } from "../lib/logger/logger.js ";

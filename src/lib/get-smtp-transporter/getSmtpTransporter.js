@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 
 export const getSmtpTransporter = () => {
     const smtp = config.get('smtp')
-
+    console.log(smtp);
     return nodemailer.createTransport({
         host: smtp.host,
         port: smtp.port,

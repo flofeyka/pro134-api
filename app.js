@@ -9,6 +9,7 @@ import cors from "cors";
 import { productRouter } from "./src/routes/product-router.js";
 import { feedbackRouter } from "./src/routes/feedback-router.js";
 import { orderRouter } from "./src/routes/order-router.js";
+import cookieParser from "cookie-parser";
 
 const port = config.get("server.port");
 
@@ -17,18 +18,20 @@ const app = express();
 app.use(
   cors({
     origin: true,
+    credentials: true
   })
 );
+app.use(cookieParser());
 app.use(express.json());
-app.use('/product', productRouter)
-app.use('/feedback', feedbackRouter)
-app.use('/order', orderRouter)
-app.use(routes);
 app.use(express.static("static"));
+app.use("/product", productRouter);
+app.use("/feedback", feedbackRouter);
+app.use("/order", orderRouter);
+app.use(routes);
 
 app.use((err, req, res, next) => {
   console.log(err);
-  const { status = 500, message = 'Непредвиденная ошибка' } = err;
+  const { status = 500, message = "Непредвиденная ошибка" } = err;
   res.status(status).json(message);
 });
 

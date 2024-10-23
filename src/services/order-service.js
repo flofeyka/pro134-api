@@ -3,7 +3,6 @@ import { getSmtpTransporter } from "../lib/get-smtp-transporter/getSmtpTransport
 import { getOrmClient } from "../lib/getOrmClient/getOrmClient.js";
 import config from "config";
 import { logger } from "../lib/logger/logger.js";
-import HttpError from "../helpers/httpError.js";
 
 const prisma = getOrmClient();
 const smtp = config.get("smtp");

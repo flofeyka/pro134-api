@@ -1,4 +1,4 @@
-import HttpError from "../helpers/httpError.js";
+import HttpError from "../helpers/HttpError.js";
 import { getOrmClient } from "../lib/getOrmClient/getOrmClient.js";
 import pdfService from "./pdf-service.js";
 import photoService  from "./photo-service.js";
