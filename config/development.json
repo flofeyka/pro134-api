@@ -8,7 +8,7 @@
   },
   "jwt": {
     "secret": "ZmFzZGZhc2YzMjEzMTN3ZmRm",
-    "access_expired": 900,
+    "access_expired": 90000,
     "refresh_expired": 1209600,
     "comment": "Значения сроков длительности токенов указывается в секундах!"
   },
@@ -17,18 +17,18 @@
     "port": 587,
 
     "receiver": "Prom34t@yandex.ru",
-    "sender": "secret0mailer@yandex.ru",
+    "sender": "Prom34t@yandex.ru",
 
     "credentials": {
-      "login": "secret0mailer",
-      "password": "lzliigyxekgscrqq"
+      "login": "Prom34t",
+      "password": "zyxosfdipkilmhua"
     }
   },
   "db": {
-    "address": "ep-ancient-salad-a5uofnli.us-east-2.aws.neon.tech",
+    "address": "ep-snowy-math-a83yajds.eastus2.azure.neon.tech",
     "port": 5432,
-    "dbname": "linkapp_db",
-    "user": "linkapp_db_owner",
-    "password": "k1TR7MGVmZrS"
+    "dbname": "linkapp",
+    "user": "linkapp_owner",
+    "password": "I9Y5NguxADqT"
   }
 }

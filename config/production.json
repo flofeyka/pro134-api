@@ -3,12 +3,12 @@
     "port": 8000
   },
   "admin": {
-    "login": "test",
-    "password": "test"
+    "login": "Wt18WLDbA8",
+    "password": "Wt18WLDbA8"
   },
   "jwt": {
     "secret": "ZmFzZGZhc2YzMjEzMTN3ZmRm",
-    "access_expired": 900,
+    "access_expired": 90000,
     "refresh_expired": 1209600,
     "comment": "Значения сроков длительности токенов указывается в секундах!"
   },
@@ -17,11 +17,11 @@
     "port": 587,
 
     "receiver": "Prom34t@yandex.ru",
-    "sender": "secret0mailer@yandex.ru",
+    "sender": "Prom34t@yandex.ru",
 
     "credentials": {
-      "login": "secret0mailer",
-      "password": "txpeabnneabxrrew"
+      "login": "Prom34t@yandex.ru",
+      "password": "zyxosfdipkilmhua"
     }
   },
   "db": {
