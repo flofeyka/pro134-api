@@ -58,7 +58,7 @@ model Product {
   price Decimal
   count Int @default(0)
 
-  photos ProductPhoto[]
+  photos ProductPhoto[] 
   order_product OrderProduct[]
   pdf ProductPdf[]
 
@@ -71,7 +71,7 @@ model ProductPhoto {
   source String
   product_id Int
 
-  product Product @relation(fields: [product_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
 }
 
 model ProductPdf {
@@ -79,7 +79,7 @@ model ProductPdf {
   source String
   product_id Int
 
-  product Product @relation(fields: [product_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
 }
 
 enum OrderType {
@@ -121,6 +121,6 @@ model OrderProduct {
   order_id Int
   count Int
 
-  order Order @relation(fields: [order_id], references: [id])
+  order Order @relation(fields: [order_id], references: [id], onDelete: Cascade)
   product Product @relation(fields: [product_id], references: [id])
 }

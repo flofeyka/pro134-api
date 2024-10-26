@@ -34,6 +34,11 @@ export default new class productService {
     
       await this.deleteProductPhotos(product.photos, product.id);
       await this.deleteProductPdf(product.pdf, product.id);
+      await prisma.orderProduct.deleteMany({
+        where: {
+          product_id: product.id
+        }
+      })
     
       await prisma.product.deleteMany({
         where: {
