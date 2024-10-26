@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://linkapp_owner:I9Y5NguxADqT@ep-snowy-math-a83yajds.eastus2.azure.neon.tech/linkapp?sslmode=require"
+  url      = "postgresql://root:superpassword1337228@postgres:5432/PRO1000?schema=public"
 }
 
 model Product {
