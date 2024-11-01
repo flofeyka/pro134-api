@@ -1,7 +1,7 @@
 import HttpError from "../helpers/HttpError.js";
 import { getOrmClient } from "../lib/getOrmClient/getOrmClient.js";
 import pdfService from "./pdf-service.js";
-import photoService  from "./photo-service.js";
+import photoService from "./photo-service.js";
 
 const prisma = getOrmClient();
 
@@ -24,35 +24,37 @@ export default new class productService {
 
   async deleteProduct(id) {
     const product = await prisma.product.findFirst({
-        where: {
-          id: +id,
-        },
-        include: {
-          photos: true,
-        },
-      });
-    
-      await this.deleteProductPhotos(product.photos, product.id);
-      await this.deleteProductPdf(product.pdf, product.id);
-      await prisma.orderProduct.deleteMany({
-        where: {
-          product_id: product.id
+      where: {
+        id: +id,
+      },
+      include: {
+        photos: true,
+      },
+    });
+
+    await this.deleteProductPhotos(product.photos, product.id);
+    await this.deleteProductPdf(product.pdf, product.id);
+    await prisma.orderProduct.deleteMany({
+      where: {
+        product: {
+          id: product.id
         }
-      })
-    
-      await prisma.product.deleteMany({
-        where: {
-          id: +id,
-        },
-      });
+      }
+    })
+
+    await prisma.product.deleteMany({
+      where: {
+        id: +id,
+      },
+    });
     return {
-        success: true,
-        message: "Продукт был успешно удален!",
+      success: true,
+      message: "Продукт был успешно удален!",
     }
   }
 
-  async stopProduct({id, value}) {  
-    
+  async stopProduct({ id, value }) {
+
     await prisma.product.update({
       where: {
         id: +id,
@@ -63,8 +65,8 @@ export default new class productService {
     });
 
     return {
-        success: true,
-        message: "Продукт был успешно остановлен!",
+      success: true,
+      message: "Продукт был успешно остановлен!",
     }
   }
 
@@ -84,45 +86,45 @@ export default new class productService {
 
   async editProduct(id, productDto, pdf, photos = []) {
     if (isNaN(+id)) {
-        return productNotFoundResponse(res);
-      }
-    
-      if (!productDto) {
-        throw HttpError(400, "Не были переданы данные");
-      }
-    
-      const product = await prisma.product.findFirst({
-        where: {
-          id: +id,
-        },
-        include: {
-          photos: true,
-          pdf: true,
-        },
-      });
-    
-      if (!product) {
-        throw HttpError(404, "Продукт не найден");
-      }
-    
-      //удаление фото продукта
-      await this.deleteProductPhotos(product.photos, +id);
-      await this.deleteProductPdf(product.pdf, product.id);
-      //добавление новых фото продукта
-      await this.saveProductPhotos(photos, product.id);
-      await this.saveProductPdf(pdf, product.id);
-      //обловление данных продукта в бд
-      await prisma.product.update({
-        data: productDto,
-        where: {
-          id: +id,
-        },
-      });
+      return productNotFoundResponse(res);
+    }
 
-      return {
-        success: true,
-        message: "Продукт был успешно изменен!",
-      }
+    if (!productDto) {
+      throw HttpError(400, "Не были переданы данные");
+    }
+
+    const product = await prisma.product.findFirst({
+      where: {
+        id: +id,
+      },
+      include: {
+        photos: true,
+        pdf: true,
+      },
+    });
+
+    if (!product) {
+      throw HttpError(404, "Продукт не найден");
+    }
+
+    //удаление фото продукта
+    await this.deleteProductPhotos(product.photos, +id);
+    await this.deleteProductPdf(product.pdf, product.id);
+    //добавление новых фото продукта
+    await this.saveProductPhotos(photos, product.id);
+    await this.saveProductPdf(pdf, product.id);
+    //обловление данных продукта в бд
+    await prisma.product.update({
+      data: productDto,
+      where: {
+        id: +id,
+      },
+    });
+
+    return {
+      success: true,
+      message: "Продукт был успешно изменен!",
+    }
   }
 
   async getAllProductsWithStopped() {
