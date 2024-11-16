@@ -3,6 +3,8 @@ import { getSmtpTransporter } from "../lib/get-smtp-transporter/getSmtpTransport
 import { getOrmClient } from "../lib/getOrmClient/getOrmClient.js";
 import config from "config";
 import { logger } from "../lib/logger/logger.js";
+import HttpError from "../helpers/HttpError.js";
+import fs from "fs";
 
 const prisma = getOrmClient();
 const smtp = config.get("smtp");
@@ -43,9 +45,7 @@ export default new (class orderService {
     email,
   }) {
     if (!products || products.length === 0) {
-      return res.status(422).json({
-        message: "Нет продуктов в заказе",
-      });
+      throw new HttpError(404, "Нет продуктов в заказе")
     }
 
     ///TODO: реализовать создание ордера в зависимости от типа ордера
@@ -83,9 +83,7 @@ export default new (class orderService {
         break;
 
       default:
-        return res.status(422).json({
-          message: "неверно передан тип заказа",
-        });
+        throw new HttpError(422, "Неверно передан тип заказа")
     }
 
     orderData.phone = phone;
@@ -114,6 +112,7 @@ export default new (class orderService {
     //сгенерированный файл
     const buffer = await generateDocumentByOrderId(order.id);
 
+
     //объект отправителя писем
     const transporter = getSmtpTransporter();
 
@@ -123,7 +122,7 @@ export default new (class orderService {
       subject: "Счет на оплату",
       attachments: [
         {
-          filename: "счет_на_оплату.docx",
+          filename: "счет_на_оплату.pdf",
           content: Buffer.from(buffer, "base64"),
         },
       ],
