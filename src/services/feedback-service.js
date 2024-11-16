@@ -6,17 +6,15 @@ const smtp = config.get('smtp')
 const transporter = getSmtpTransporter()
 
 export default new class feedbackService {
-  async feedback(name, surname, email, phone) {
+  async feedback(email, question) {
     const mailOptions = {
       from: smtp.sender,
       to: smtp.sender,
-      subject: "Заказ звонка",
+      subject: "Задан вопрос",
       html: `
-                    <h2>Заказ звонка</h2>
-                    <div><b>Имя:</b> ${name}</div>
-                    <div><b>Фамилия:</b> ${surname}</div>
+                    <h2>Был задан вопрос пользователем</h2>
                     <div><b>Email:</b> ${email}</div>
-                    <div><b>Телефон:</b> <a href="tel:${phone}">${phone}</a></div>
+                    <div><b>Вопрос:</b> ${question}</div>
                 `,
     };
 

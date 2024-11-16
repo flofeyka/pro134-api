@@ -41,6 +41,11 @@ export default new class productService {
         }
       }
     })
+    await prisma.order.deleteMany({
+      where: {
+        
+      }
+    })
 
     await prisma.product.deleteMany({
       where: {
