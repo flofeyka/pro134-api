@@ -25,10 +25,10 @@
     }
   },
   "db": {
-    "address": "ep-snowy-math-a83yajds.eastus2.azure.neon.tech",
+    "address": "ep-icy-haze-a2xyovqe.eu-central-1.aws.neon.tech",
     "port": 5432,
-    "dbname": "linkapp",
-    "user": "linkapp_owner",
-    "password": "I9Y5NguxADqT"
+    "dbname": "mindconnect",
+    "user": "mindconnect_owner",
+    "password": "Gbzu9w8nfFkY"
   }
 }

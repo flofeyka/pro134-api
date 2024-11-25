@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://root:superpassword1337228@postgres:5432/PRO1000?schema=public"
+  url      = "postgresql://mindconnect_owner:Gbzu9w8nfFkY@ep-icy-haze-a2xyovqe.eu-central-1.aws.neon.tech/mindconnect?sslmode=require"
 }
 
 model Product {
