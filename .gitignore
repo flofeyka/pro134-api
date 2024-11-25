@@ -1,4 +1,6 @@
 node_modules
 static
 # Keep environment variables out of version control
+prisma
+config
 .env
