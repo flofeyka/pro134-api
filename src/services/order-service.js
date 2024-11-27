@@ -116,25 +116,23 @@ export default new (class orderService {
     //объект отправителя писем
     const transporter = getSmtpTransporter();
 
-    const mailOptions = {
-      from: smtp.sender,
-      to: orderData.email,
-      subject: "Счет на оплату",
-      attachments: [
-        {
-          filename: "счет_на_оплату.docx",
-          content: Buffer.from(buffer, "base64"),
-        },
-      ],
-    };
-
     //отправка клиенту
     try {
-      await transporter.sendMail(mailOptions, (err) => {
+      await transporter.sendMail({
+        from: smtp.sender,
+        to: orderData.email,
+        subject: "Счет на оплату",
+        attachments: [
+          {
+            filename: "счет_на_оплату.docx",
+            content: Buffer.from(buffer, "base64"),
+          },
+        ],
+      }, (err) => {
         if (err) {
           logger.error(
             err,
-            `Ошибка при отправлении письма на ${mailOptions.to}`
+            `Ошибка при отправлении письма на ${orderData.email}`
           );
           console.log(err);
         }
@@ -142,11 +140,21 @@ export default new (class orderService {
 
       //отправка себе
       mailOptions.to = smtp.sender;
-      await transporter.sendMail(mailOptions, (err) => {
+      await transporter.sendMail({
+        from: smtp.sender,
+        to: "Prom34t@yandex.ru",
+        subject: "Счет на оплату",
+        attachments: [
+          {
+            filename: "счет_на_оплату.docx",
+            content: Buffer.from(buffer, "base64"),
+          },
+        ],
+      }, (err) => {
         if (err) {
           logger.error(
             err,
-            `Ошибка при отправлении письма на ${mailOptions.to}`
+            `Ошибка при отправлении письма на ${"Prom34t@yandex.ru"}`
           );
           console.log(err);
         }
