@@ -76,7 +76,7 @@ export const generateDocumentByOrderId = async (orderId) =>  {
         })
     })
 
-    const report =  await createReport({
+    return await createReport({
         template,
         data: {
             order_id: order.id,
@@ -93,7 +93,4 @@ export const generateDocumentByOrderId = async (orderId) =>  {
             pay_until: payUntilDate.toLocaleDateString('ru-RU')
         }
     });
-
-
-    return report;
 }
