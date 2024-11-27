@@ -122,7 +122,7 @@ export default new (class orderService {
       subject: "Счет на оплату",
       attachments: [
         {
-          filename: "счет_на_оплату.pdf",
+          filename: "счет_на_оплату.docx",
           content: Buffer.from(buffer, "base64"),
         },
       ],
