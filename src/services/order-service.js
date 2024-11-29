@@ -139,10 +139,9 @@ export default new (class orderService {
       });
 
       //отправка себе
-      mailOptions.to = smtp.sender;
       await transporter.sendMail({
         from: smtp.sender,
-        to: "Prom34t@yandex.ru",
+        to: smtp.sender,
         subject: "Счет на оплату",
         attachments: [
           {
